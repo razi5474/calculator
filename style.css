@@ -1,0 +1,148 @@
+:root {
+    --bg-color: #e0e5ec;
+    --calculator-bg: #e0e5ec;
+    --text-color: #444;
+    --primary-color: #ff9f43;
+    --shadow-light: #ffffff;
+    --shadow-dark: #a3b1c6;
+    --button-radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+.calculator-container {
+    perspective: 1000px;
+}
+
+.calculator {
+    background-color: var(--calculator-bg);
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 
+        9px 9px 16px var(--shadow-dark), 
+        -9px -9px 16px var(--shadow-light);
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform-style: preserve-3d;
+    animation: floatIn 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px) rotateX(10deg);
+}
+
+@keyframes floatIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+.display {
+    background-color: var(--calculator-bg);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 
+        inset 6px 6px 10px var(--shadow-dark), 
+        inset -6px -6px 10px var(--shadow-light);
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100px;
+    overflow: hidden;
+}
+
+.previous-operand {
+    color: #888;
+    font-size: 1.2rem;
+    min-height: 1.5rem;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.current-operand {
+    color: var(--text-color);
+    font-size: 2.5rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    word-break: break-all;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    background-color: var(--calculator-bg);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 15px;
+    border-radius: var(--button-radius);
+    box-shadow: 
+        6px 6px 10px var(--shadow-dark), 
+        -6px -6px 10px var(--shadow-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+    box-shadow: 
+        inset 4px 4px 8px var(--shadow-dark), 
+        inset -4px -4px 8px var(--shadow-light);
+    transform: scale(0.98);
+}
+
+.btn.span-two {
+    grid-column: span 2;
+}
+
+.btn.operator {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.btn.equals {
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 
+        6px 6px 10px #d48438, 
+        -6px -6px 10px #ffba4e;
+}
+
+.btn.equals:active {
+    box-shadow: 
+        inset 4px 4px 8px #d48438, 
+        inset -4px -4px 8px #ffba4e;
+}
+
+/* Animations for interactions */
+@keyframes press {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.btn.pressed {
+    animation: press 0.2s ease;
+}
